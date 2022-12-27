@@ -1,4 +1,4 @@
-cassandra.yaml
+cassandra.yml
 *.env
 !*.example.env
 /data
