@@ -10,22 +10,22 @@ services:
     image: redislabs/redisearch:${REDISEARCH_IMAGE_TAG}
     env_file:
       - .envs/redisearch.env
-    command: /bin/sh -c "redis-server --requirepass $${REDISEARCH_PASSWORD} --loadmodule /usr/lib/redis/modules/redisearch.so"
+    command: /bin/sh -c "redis-server --requirepass $${REDISEARCH_PASSWORD} --loadmodule ${REDISEARCH_MODULE}"
     networks:
       common-net:
         aliases:
           - common-redisearch
     volumes:
-      - common-redisearch:/bitnami
+      - common-redisearch:/data
 
   redisearch-slave:
     image: redislabs/redisearch:${REDISEARCH_IMAGE_TAG}
     env_file:
       - .envs/redisearch-slave.env
-    command: /bin/sh -c "redis-server --requirepass $${REDISEARCH_PASSWORD} --slaveof $${REDISEARCH_MASTER_HOST} $${REDISEARCH_MASTER_PORT} --masterauth $${REDISEARCH_MASTER_PASSWORD} --loadmodule /usr/lib/redis/modules/redisearch.so"
+    command: /bin/sh -c "redis-server --requirepass $${REDISEARCH_PASSWORD} --slaveof $${REDISEARCH_MASTER_HOST} $${REDISEARCH_MASTER_PORT} --masterauth $${REDISEARCH_MASTER_PASSWORD} --loadmodule ${REDISEARCH_MODULE}"
     networks:
       common-net:
         aliases:
           - common-redisearch-slave
     volumes:
-      - common-redisearch-slave:/bitnami
+      - common-redisearch-slave:/data
