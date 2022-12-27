@@ -13,7 +13,7 @@ services:
         aliases:
           - common-redis
     volumes:
-      - common-redis:/bitnami
+      - common-redis:/bitnami/redis/data
 
   redis-commander:
     image: rediscommander/redis-commander:latest
